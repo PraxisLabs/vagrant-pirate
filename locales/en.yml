@@ -3,7 +3,7 @@ en:
     plugins:
       pirate:
         commands:
-          init:
+          ship:
             success: |-
               A `Vagrantfile` has been placed in this directory, a default Yaml VM config file
               has been placed in '%{avail_dir}', and a symlink to it, placed in '%{enabled_dir}'.

@@ -18,9 +18,9 @@ module VagrantPlugins
         Command::Pirate
       end
 
-      command("pirate-init", primary: false) do
-        require_relative "command/pirate_init"
-        Command::PirateInit
+      command("pirate-ship", primary: false) do
+        require_relative "command/pirate_ship"
+        Command::PirateShip
       end
 
       command("pirate-update", primary: false) do

@@ -4,7 +4,7 @@ require 'vagrant/util/template_renderer'
 module VagrantPlugins
   module VagrantPirate
     module Command
-      class PirateInit < Vagrant.plugin("2", :command)
+      class PirateShip < Vagrant.plugin("2", :command)
 
         def self.synopsis
           "Initializes a new Vagrant environment by creating a Vagrantfile and YAML config files."
@@ -13,7 +13,7 @@ module VagrantPlugins
           options = {}
 
           opts = OptionParser.new do |opts|
-            opts.banner = "Usage: vagrant pirate init [box-name] [box-url]"
+            opts.banner = "Usage: vagrant pirate ship [box-name] [box-url]"
           end
 
           # Parse the options
@@ -27,7 +27,7 @@ module VagrantPlugins
           create_vm_yaml('vm2')
 
           @env.ui.info(I18n.t(
-            "vagrant.plugins.pirate.commands.init.success",
+            "vagrant.plugins.pirate.commands.ship.success",
               avail_dir: 'available.d',
               enabled_dir: 'enabled.d',
               local_dir: 'local.d'

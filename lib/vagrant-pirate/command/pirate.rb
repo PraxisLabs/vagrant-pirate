@@ -14,9 +14,9 @@ module VagrantPlugins
           @main_args, @sub_command, @sub_args = split_main_and_subcommand(argv)
 
           @subcommands = Vagrant::Registry.new
-          @subcommands.register(:init) do
-            require File.expand_path("../pirate_init", __FILE__)
-            PirateInit
+          @subcommands.register(:ship) do
+            require File.expand_path("../pirate_ship", __FILE__)
+            PirateShip
           end
 
           @subcommands.register(:update) do

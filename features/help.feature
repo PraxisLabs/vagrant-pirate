@@ -8,14 +8,14 @@ Feature: Command help text
     When I successfully run `vagrant help`
     Then the output should contain "pirate"
     And the output should contain "Manage YAML-based projects."
-    And the output should not contain "pirate-init"
+    And the output should not contain "pirate-ship"
     And the output should not contain "pirate-update"
 
   Scenario: Running 'vagrant list-commands'
     When I successfully run `vagrant list-commands`
     Then the output should contain "pirate"
     And the output should contain "Manage YAML-based projects."
-    And the output should contain "pirate-init"
+    And the output should contain "pirate-ship"
     And the output should contain "Initializes a new Vagrant environment by creating a Vagrantfile and YAML config files."
     And the output should contain "pirate-update"
     And the output should contain "Updates a YAML-based Vagrant environment."
@@ -24,13 +24,13 @@ Feature: Command help text
     When I successfully run `vagrant pirate`
     Then the output should contain "Usage: vagrant pirate <command> [<args>]"
     And the output should contain "Available subcommands:"
-    And the output should contain "init"
+    And the output should contain "ship"
     And the output should contain "update"
     And the output should contain "For help on any individual command run `vagrant pirate COMMAND -h`"
 
-  Scenario: Running 'vagrant pirate init -h'
-    When I successfully run `vagrant pirate init -h`
-    Then the output should contain "Usage: vagrant pirate init [box-name] [box-url]"
+  Scenario: Running 'vagrant pirate ship -h'
+    When I successfully run `vagrant pirate ship -h`
+    Then the output should contain "Usage: vagrant pirate ship [box-name] [box-url]"
     And the output should contain "-h, --help"
     And the output should contain "Print this help"
 
