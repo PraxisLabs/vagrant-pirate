@@ -1,10 +1,11 @@
-module VagrantYaml
+module VagrantPirate
   # The source root is the path to the root directory of the this gem.
   def self.source_root
     @source_root ||= Pathname.new(File.expand_path('../../../', __FILE__))
   end
 
-  def self.apply_settings(vm,yml)
+  # Apply settings loaded from YAML to a vm.
+  def self.ahoy!(vm,yml)
     yml.each do |key0,value0|
       if !value0.is_a?(Hash)                           # If it's a setting,
           vm.send("#{key0}=".to_sym, value0)           # we set it directly.
@@ -18,7 +19,7 @@ module VagrantYaml
   end
 
   # Merge hashes recursively
-  def self.deep_merge!(first, second)
+  def self.sail_ho!(first, second)
     second.each_pair do |k,v|
       if first[k].is_a?(Hash) and second[k].is_a?(Hash)
         deep_merge!(first[k], second[k])
@@ -28,8 +29,8 @@ module VagrantYaml
     end
   end
 
-  def self.up!(config)
-
+  
+  def self.Arrr!(plunder)
     require "yaml"
 
     # Set defaults
@@ -37,12 +38,12 @@ module VagrantYaml
     enabled_dir = "enabled.d"
     # Override defaults with config, if it's set, since config finalizing
     # occurs too late for our purposes.
-    if config.yaml.conf_dirs.is_a?(Hash)
-      if config.yaml.conf_dirs.has_key?('local')
-        local_dir = config.yaml.conf_dirs['local']
+    if plunder.pirate.map.is_a?(Hash)
+      if plunder.pirate.map.has_key?('local')
+        local_dir = plunder.pirate.map['local']
       end
-      if config.yaml.conf_dirs.has_key?('enabled')
-        enabled_dir = config.yaml.conf_dirs['enabled']
+      if plunder.pirate.map.has_key?('enabled')
+        enabled_dir = plunder.pirate.map['enabled']
       end
     end
 
@@ -76,11 +77,11 @@ module VagrantYaml
       local_file = "#{local_dir}/#{vm}.yaml"
       if File.exists?(local_file)
         local = YAML.load_file local_file
-        deep_merge!(yml, local) if local.is_a?(Hash)
+        sail_ho!(yml, local) if local.is_a?(Hash)
       end
 
-      config.vm.define "#{vm}" do |vm_config|
-        apply_settings(vm_config.vm, yml)
+      plunder.vm.define "#{vm}" do |vm_config|
+        ahoy!(vm_config.vm, yml)
         # We may need some project-wide config file to handle things like:
         #vm_config.vbguest.auto_update = false
       end

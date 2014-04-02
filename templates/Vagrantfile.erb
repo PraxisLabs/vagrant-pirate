@@ -1,15 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+# Vagrantfile API/syntax version.
+# Don't be touching this, Matey, lest ye send us all down to Dany Jones' locker!
 VAGRANTFILE_API_VERSION = "2"
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |plunder|
 
   # Specify the directories in which to look for YAML VM config files.
-  #config.yaml.conf_dirs = { 'local' => 'local.d', 'enabled' => 'enabled.d' }
+  #plunder.pirate.map = { 'local' => 'local.d', 'enabled' => 'enabled.d' }
 
-  # Load YAML VM configs.
-  VagrantYaml::up!(config)
+  # Load, parse and apply YAML VM configs.
+  Pirate::Arrr!(plunder)
 
 end

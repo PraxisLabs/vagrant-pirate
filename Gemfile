@@ -5,7 +5,7 @@ group :development do
 end
 
 group :plugins do
-  gem "vagrant-yaml", path: "."
+  gem "vagrant-pirate", path: "."
 end
 
 gemspec

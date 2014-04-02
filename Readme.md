@@ -1,7 +1,7 @@
-Vagrant-Yaml
-============
+Vagrant-Pirate
+==============
 
-[![Build Status](https://travis-ci.org/PraxisLabs/vagrant-yaml.svg?branch=master)](https://travis-ci.org/PraxisLabs/vagrant-yaml) [![Coverage Status](https://coveralls.io/repos/PraxisLabs/vagrant-yaml/badge.png)](https://coveralls.io/r/PraxisLabs/vagrant-yaml) [![Dependency Status](https://gemnasium.com/PraxisLabs/vagrant-yaml.png)](https://gemnasium.com/PraxisLabs/vagrant-yaml) [![Gem Version](https://badge.fury.io/rb/vagrant-yaml.png)](http://badge.fury.io/rb/vagrant-yaml)
+[![Build Status](https://travis-ci.org/PraxisLabs/vagrant-pirate.svg?branch=master)](https://travis-ci.org/PraxisLabs/vagrant-pirate) [![Coverage Status](https://coveralls.io/repos/PraxisLabs/vagrant-pirate/badge.png)](https://coveralls.io/r/PraxisLabs/vagrant-pirate) [![Dependency Status](https://gemnasium.com/PraxisLabs/vagrant-pirate.png)](https://gemnasium.com/PraxisLabs/vagrant-pirate) [![Gem Version](https://badge.fury.io/rb/vagrant-pirate.png)](http://badge.fury.io/rb/vagrant-pirate)
 
 
 Installation
@@ -10,7 +10,7 @@ Installation
 To install this gem, use the Vagrant 'plugin' command:
 
 ```
-vagrant plugin install vagrant-yaml
+vagrant plugin install vagrant-pirate
 ```
 
 This will keep it isolated from system-wide and other gems.
@@ -22,29 +22,29 @@ Usage
 To initialize a new project:
 
 ```
-vagrant yaml init [box-name] [box-url]
+vagrant pirate init [box-name] [box-url]
 ```
 
-To update an existing project with the latest Vagrantfile that Vagrant-Yaml
+To update an existing project with the latest Vagrantfile that Vagrant-Pirate
 provides:
 
 ```
-vagrant yaml update
+vagrant pirate update
 ```
 
 
 Vagrantfile
 -----------
 
-Vagrant-Yaml provides a custom Vagrantfile. This Vagrantfile parses the Yaml
-config files in the 'vms-enabled' directory, and applies any settings found
+Vagrant-Pirate provides a custom Vagrantfile. This Vagrantfile parses the Yaml
+config files in the 'enabled.d' directory, and applies any settings found
 there. The Vagrant name for the VM is the name of the file (without the '.yaml'
 extension, obviously). Multi-VM environments are supported by adding additional
 Yaml config files.
 
 As with a standard Vagrantfile, the one this gem provides can be altered to
 suit the needs of your project. However, be aware that running the 'vagrant
-yaml update' command will overwrite any changes you make. Of course, this
+pirate update' command will overwrite any changes you make. Of course, this
 should not be a problem, since you are keeping your project directory under
 some form of version control, right?
 
@@ -53,8 +53,8 @@ Config files
 ------------
 
 All Vagrant VM configuration can be done from Yaml config files. Only config
-files in the 'vms-enabled' directory are interpreted. You can copy from, or
-symlink to, files in the 'vms-available' directory. This allows you to have a
+files in the 'enabled.d' directory are interpreted. You can copy from, or
+symlink to, files in the 'available.d' directory. This allows you to have a
 library of config files that could, for example, be updated by an external
 application.
 
@@ -72,10 +72,10 @@ Vagrant Options
 ---------------
 
 For all available Vagrant options, see the docs on Vagrantfile settings:
-http://vagrantup.com/v1/docs/vagrantfile.html. While we have provided some
-example below, it is far from exhaustive. If you cannot figure out how to apply
-a particular setting, please file a support request at:
-https://github.com/ergonlogic/vagrant-yaml.
+https://docs.vagrantup.com/v2/vagrantfile/index.html. While we have provided
+some examples below, it is far from exhaustive. If you cannot figure out how to
+apply a particular setting, please file a support request at:
+https://github.com/ergonlogic/vagrant-pirate.
 
 
 Free Software

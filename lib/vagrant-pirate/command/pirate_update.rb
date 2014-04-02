@@ -2,9 +2,9 @@ require 'optparse'
 require 'vagrant/util/template_renderer'
 
 module VagrantPlugins
-  module VagrantYaml
+  module VagrantPirate
     module Command
-      class YamlUpdate < Vagrant.plugin("2", :command)
+      class PirateUpdate < Vagrant.plugin("2", :command)
         def self.synopsis
           "Updates a YAML-based Vagrant environment."
         end
@@ -18,7 +18,7 @@ module VagrantPlugins
           do_update = false
 
           opts = OptionParser.new do |opts|
-            opts.banner = "Usage: vagrant yaml update"
+            opts.banner = "Usage: vagrant pirate update"
 
             opts.on("-f", "--force", "Update without confirmation.") do |f|
               options[:force] = f
@@ -34,7 +34,7 @@ module VagrantPlugins
           else
             choice = nil
             begin
-              choice = @env.ui.ask(I18n.t("vagrant.plugins.yaml.commands.update.confirmation"))
+              choice = @env.ui.ask(I18n.t("vagrant.plugins.pirate.commands.update.confirmation"))
 
             rescue Errors::UIExpectsTTY
               # We raise a more specific error but one which basically
@@ -45,11 +45,11 @@ module VagrantPlugins
           end
 
           if do_update
-            @logger.info("Updating project with latest Vagrantfile from vagrant-yaml.")
+            @logger.info("Updating project with latest Vagrantfile from vagrant-pirate.")
             update
           else
             @logger.info("Not updating project since confirmation was declined.")
-            @env.ui.success(I18n.t("vagrant.plugins.yaml.commands.update.will_not_update"),
+            @env.ui.success(I18n.t("vagrant.plugins.pirate.commands.update.will_not_update"),
                               :prefix => false)
           end
         end
@@ -57,7 +57,7 @@ module VagrantPlugins
         def update
           save_path = @env.cwd.join("Vagrantfile")
 
-          template_path = ::VagrantYaml.source_root.join("templates/Vagrantfile")
+          template_path = ::VagrantPirate.source_root.join("templates/Vagrantfile")
           contents = Vagrant::Util::TemplateRenderer.render(template_path)
 
           # Write out the contents
@@ -65,7 +65,7 @@ module VagrantPlugins
             f.write(contents)
           end
 
-          @env.ui.info(I18n.t("vagrant.plugins.yaml.commands.update.success"),
+          @env.ui.info(I18n.t("vagrant.plugins.pirate.commands.update.success"),
                        :prefix => false)
 
           # Success, exit status 0

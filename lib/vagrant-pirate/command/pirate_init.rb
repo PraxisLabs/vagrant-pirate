@@ -2,18 +2,18 @@ require 'optparse'
 require 'vagrant/util/template_renderer'
 
 module VagrantPlugins
-  module VagrantYaml
+  module VagrantPirate
     module Command
-      class YamlInit < Vagrant.plugin("2", :command)
+      class PirateInit < Vagrant.plugin("2", :command)
 
         def self.synopsis
-          "Initializes a new YAML-based Vagrant environment by creating a Vagrantfile, and config directories."
+          "Initializes a new Vagrant environment by creating a Vagrantfile and YAML config files."
         end
         def execute
           options = {}
 
           opts = OptionParser.new do |opts|
-            opts.banner = "Usage: vagrant yaml init [box-name] [box-url]"
+            opts.banner = "Usage: vagrant pirate init [box-name] [box-url]"
           end
 
           # Parse the options
@@ -27,7 +27,7 @@ module VagrantPlugins
           create_vm_yaml('vm2')
 
           @env.ui.info(I18n.t(
-            "vagrant.plugins.yaml.commands.init.success",
+            "vagrant.plugins.pirate.commands.init.success",
               avail_dir: 'available.d',
               enabled_dir: 'enabled.d',
               local_dir: 'local.d'
@@ -40,7 +40,7 @@ module VagrantPlugins
           save_path = @env.cwd.join("Vagrantfile")
           raise Errors::VagrantfileExistsError if save_path.exist?
 
-          template_path = ::VagrantYaml.source_root.join("templates/Vagrantfile")
+          template_path = ::VagrantPirate.source_root.join("templates/Vagrantfile")
           contents = Vagrant::Util::TemplateRenderer.render(template_path)
           save_path.open("w+") do |f|
             f.write(contents)
@@ -57,7 +57,7 @@ module VagrantPlugins
           save_path = @env.cwd.join("available.d/default.yaml")
           raise Errors::VagrantfileExistsError if save_path.exist?
 
-          template_path = ::VagrantYaml.source_root.join("templates/default.yaml")
+          template_path = ::VagrantPirate.source_root.join("templates/default.yaml")
           contents = Vagrant::Util::TemplateRenderer.render(template_path,
                                                             :box_name => box_name,
                                                             :box_url => box_url)
@@ -70,9 +70,9 @@ module VagrantPlugins
           File.symlink("../available.d/default.yaml", "enabled.d/" + vm_name + ".yaml")
           save_path = @env.cwd.join("local.d/" + vm_name + ".yaml")
           raise Errors::VagrantfileExistsError if save_path.exist?
-          template_path = ::VagrantYaml.source_root.join("templates/local.yaml")
+          template_path = ::VagrantPirate.source_root.join("templates/local.yaml")
           contents = Vagrant::Util::TemplateRenderer.render(template_path,
-                                                            :host_name => vm_name + ".example.com")
+                                                            :hostname => vm_name + ".example.com")
           save_path.open("w+") do |f|
             f.write(contents)
           end

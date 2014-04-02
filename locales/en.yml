@@ -1,7 +1,7 @@
 en:
   vagrant:
     plugins:
-      yaml:
+      pirate:
         commands:
           init:
             success: |-
@@ -14,17 +14,17 @@ en:
               file to see how it works.
           update:
             success: |-
-              Vagrantfile updated using the latest one from vagrant-yaml.
+              Vagrantfile updated using the latest one from vagrant-pirate.
             confirmation: |-
               This operation will overwrite the Vagrantfile in this project with the one in the
-              vagrant-yaml gem. Do you want to proceed?
+              vagrant-pirate gem. Do you want to proceed?
             will_not_update: |-
               User aborted. Vagrantfile was not updated.
 
         errors:
           vagrantfile_exists: |-
             `Vagrantfile` already exists in this directory. Remove it before running `vagrant
-            yaml init`, or run `vagrant yaml update` to update to the latest version.
+            pirate init`, or run `vagrant pirate update` to update to the latest version.
           enabled_dir_missing: |-
             A valid directory must be specified where YAML configs for the VMs can be found.
             Current config points to a non-existent directory:

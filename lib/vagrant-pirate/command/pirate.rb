@@ -1,9 +1,9 @@
 require 'optparse'
 
 module VagrantPlugins
-  module VagrantYaml
+  module VagrantPirate
     module Command
-      class Yaml < Vagrant.plugin("2", :command)
+      class Pirate < Vagrant.plugin("2", :command)
         def self.synopsis
           "Manage YAML-based projects."
         end
@@ -15,13 +15,13 @@ module VagrantPlugins
 
           @subcommands = Vagrant::Registry.new
           @subcommands.register(:init) do
-            require File.expand_path("../yaml_init", __FILE__)
-            YamlInit
+            require File.expand_path("../pirate_init", __FILE__)
+            PirateInit
           end
 
           @subcommands.register(:update) do
-            require File.expand_path("../yaml_update", __FILE__)
-            YamlUpdate
+            require File.expand_path("../pirate_update", __FILE__)
+            PirateUpdate
           end
         end
 
@@ -44,7 +44,7 @@ module VagrantPlugins
         # Prints the help out for this command
         def help
           opts = OptionParser.new do |opts|
-            opts.banner = "Usage: vagrant yaml <command> [<args>]"
+            opts.banner = "Usage: vagrant pirate <command> [<args>]"
             opts.separator ""
             opts.separator "Available subcommands:"
 
@@ -58,7 +58,7 @@ module VagrantPlugins
             end
 
             opts.separator ""
-            opts.separator "For help on any individual command run `vagrant yaml COMMAND -h`"
+            opts.separator "For help on any individual command run `vagrant pirate COMMAND -h`"
           end
 
           @env.ui.info(opts.help, :prefix => false)

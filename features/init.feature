@@ -1,13 +1,13 @@
 Feature: Init command
 
   In order to start using a YAML-based Vagrant project
-  As a user using vagrant-yaml
+  As a user using vagrant-pirate
   I want to initialize a new project
 
-  Scenario: Running 'vagrant yaml init'
+  Scenario: Running 'vagrant pirate init'
     Given a directory named "test"
     And I cd to "test"
-    When I successfully run `vagrant yaml init`
+    When I successfully run `vagrant pirate init`
     Then the following directories should exist:
       | local.d |
       | available.d |
