@@ -4,10 +4,10 @@ Feature: Init command
   As a user using vagrant-pirate
   I want to initialize a new project
 
-  Scenario: Running 'vagrant pirate ship'
-    Given a directory named "test_ship"
-    And I cd to "test_ship"
-    When I successfully run `vagrant pirate ship`
+  Scenario: Running 'vagrant pirate fleet'
+    Given a directory named "test_fleet"
+    And I cd to "test_fleet"
+    When I successfully run `vagrant pirate fleet`
     Then the following directories should exist:
       | local.d |
       | available.d |

@@ -23,6 +23,11 @@ module VagrantPlugins
         Command::PirateShip
       end
 
+      command("pirate-fleet", primary: false) do
+        require_relative "command/pirate_fleet"
+        Command::PirateFleet
+      end
+
       command("pirate-update", primary: false) do
         require_relative "command/pirate_update"
         Command::PirateUpdate

@@ -3,6 +3,15 @@ en:
     plugins:
       pirate:
         commands:
+          fleet:
+            success: |-
+              A `Vagrantfile` has been placed in this directory, a default Yaml VM config file
+              has been placed in '%{avail_dir}', and a symlink to it, placed in '%{enabled_dir}'.
+              Finally, a file to contain local overrides was placed in '%{local_dir}'. Unlike a
+              regular Vagrantfile, this one parses and applies the configuration in the Yaml
+              files it finds in '%{enabled_dir}'. You are now ready to `vagrant up` your first
+              virtual environment! Please read the comments in the default Yaml VM config
+              file to see how it works.
           ship:
             success: |-
               A `Vagrantfile` has been placed in this directory, a default Yaml VM config file
