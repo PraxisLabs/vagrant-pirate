@@ -2,7 +2,7 @@ require 'optparse'
 require 'vagrant/util/template_renderer'
 
 module VagrantPlugins
-  module VagrantPirate
+  module Pirate
     module Command
       class PirateShip < Vagrant.plugin("2", :command)
 
@@ -40,7 +40,7 @@ module VagrantPlugins
           save_path = @env.cwd.join("Vagrantfile")
           raise Errors::VagrantfileExistsError if save_path.exist?
 
-          template_path = ::VagrantPirate.source_root.join("templates/Vagrantfile")
+          template_path = ::Pirate.gangway.join("templates/Vagrantfile")
           contents = Vagrant::Util::TemplateRenderer.render(template_path)
           save_path.open("w+") do |f|
             f.write(contents)
@@ -57,7 +57,7 @@ module VagrantPlugins
           save_path = @env.cwd.join("available.d/default.yaml")
           raise Errors::VagrantfileExistsError if save_path.exist?
 
-          template_path = ::VagrantPirate.source_root.join("templates/default.yaml")
+          template_path = ::Pirate.gangway.join("templates/default.yaml")
           contents = Vagrant::Util::TemplateRenderer.render(template_path,
                                                             :box_name => box_name,
                                                             :box_url => box_url)
@@ -70,7 +70,7 @@ module VagrantPlugins
           File.symlink("../available.d/default.yaml", "enabled.d/" + vm_name + ".yaml")
           save_path = @env.cwd.join("local.d/" + vm_name + ".yaml")
           raise Errors::VagrantfileExistsError if save_path.exist?
-          template_path = ::VagrantPirate.source_root.join("templates/local.yaml")
+          template_path = ::Pirate.gangway.join("templates/local.yaml")
           contents = Vagrant::Util::TemplateRenderer.render(template_path,
                                                             :hostname => vm_name + ".example.com")
           save_path.open("w+") do |f|

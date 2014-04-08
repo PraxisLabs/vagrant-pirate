@@ -1,7 +1,7 @@
 require 'optparse'
 
 module VagrantPlugins
-  module VagrantPirate
+  module Pirate
     module Command
       class Pirate < Vagrant.plugin("2", :command)
         def self.synopsis

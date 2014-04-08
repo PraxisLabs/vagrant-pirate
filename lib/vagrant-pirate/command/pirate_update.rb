@@ -2,7 +2,7 @@ require 'optparse'
 require 'vagrant/util/template_renderer'
 
 module VagrantPlugins
-  module VagrantPirate
+  module Pirate
     module Command
       class PirateUpdate < Vagrant.plugin("2", :command)
         def self.synopsis
@@ -57,7 +57,7 @@ module VagrantPlugins
         def update
           save_path = @env.cwd.join("Vagrantfile")
 
-          template_path = ::VagrantPirate.source_root.join("templates/Vagrantfile")
+          template_path = ::Pirate.gangway.join("templates/Vagrantfile")
           contents = Vagrant::Util::TemplateRenderer.render(template_path)
 
           # Write out the contents

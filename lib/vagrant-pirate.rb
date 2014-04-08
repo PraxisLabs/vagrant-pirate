@@ -11,7 +11,7 @@ end
 require 'vagrant'
 require 'vagrant-pirate/errors'
 require 'vagrant-pirate/plugin'
-require 'vagrant-pirate/vagrant-pirate'
+require 'vagrant-pirate/pirate'
 
 # Add our custom translations to the load path
 I18n.load_path << File.expand_path("../../locales/en.yml", __FILE__)

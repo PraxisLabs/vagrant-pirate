@@ -3,7 +3,7 @@ require File.expand_path('../lib/vagrant-pirate/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "vagrant-pirate"
-  s.version     = VagrantPirate::VERSION
+  s.version     = Pirate::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Christopher Gervais"]
   s.email       = ["chris@ergonlogic.com"]

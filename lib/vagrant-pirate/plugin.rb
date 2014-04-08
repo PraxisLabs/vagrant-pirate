@@ -1,9 +1,9 @@
-require 'vagrant-pirate/vagrant-pirate'
+require 'vagrant-pirate/pirate'
 
 module VagrantPlugins
-  module VagrantPirate
+  module Pirate
     class Plugin < Vagrant.plugin("2")
-      name "Yagrant YAML"
+      name "Yagrant Pirate"
       description <<-DESC
       This plugin enables Vagrant to use YAML files to configure VMs.
       DESC

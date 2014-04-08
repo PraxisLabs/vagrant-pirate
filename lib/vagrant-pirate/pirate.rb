@@ -1,7 +1,13 @@
-module VagrantPirate
+module Pirate
   # The source root is the path to the root directory of the this gem.
-  def self.source_root
-    @source_root ||= Pathname.new(File.expand_path('../../../', __FILE__))
+  def self.gangway
+    @gangway ||= Pathname.new(File.expand_path('../../../', __FILE__))
+  end
+
+  # The project root directory.
+  # TODO: can we retrive this from Vagrant::Environment?
+  def self.haven
+    @haven ||= Pathname.new(Dir.pwd)
   end
 
   # Apply settings loaded from YAML to a vm.
@@ -22,14 +28,13 @@ module VagrantPirate
   def self.sail_ho!(first, second)
     second.each_pair do |k,v|
       if first[k].is_a?(Hash) and second[k].is_a?(Hash)
-        deep_merge!(first[k], second[k])
+        sail_ho!(first[k], second[k])
       else
         first[k] = second[k]
       end
     end
   end
 
-  
   def self.Arrr!(plunder)
     require "yaml"
 
@@ -48,10 +53,8 @@ module VagrantPirate
     end
 
     # All paths are relative to the project root
-    # todo: Can we access this from Vagrant::Environment?
-    current_dir = Dir.pwd
-    local_dir = "#{current_dir}/#{local_dir}"
-    enabled_dir = "#{current_dir}/#{enabled_dir}"
+    local_dir = ::Pirate.haven.join(local_dir)
+    enabled_dir = ::Pirate.haven.join(enabled_dir)
 
     # Scan our vms-enabled/ directory for YAML config files
     if File.directory?(enabled_dir)

@@ -1,4 +1,4 @@
-module VagrantPirate
+module Pirate
   module Errors
 
     class PirateError < Vagrant::Errors::VagrantError
