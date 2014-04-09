@@ -35,34 +35,41 @@ module Pirate
     end
   end
 
-  def self.Arrr!(plunder)
-    require "yaml"
-
+  # Define our config directories
+  def self.get_map(plunder)
+    dirs = {}
     # Set defaults
-    local_dir = "local.d"
-    enabled_dir = "enabled.d"
+    dirs['local'] = ::Pirate.haven.join('local.d')
+    dirs['enabled'] = ::Pirate.haven.join('enabled.d')
     # Override defaults with config, if it's set, since config finalizing
     # occurs too late for our purposes.
     if plunder.pirate.map.is_a?(Hash)
       if plunder.pirate.map.has_key?('local')
-        local_dir = plunder.pirate.map['local']
+        dirs['local'] = ::Pirate.haven.join(plunder.pirate.map['local'])
       end
       if plunder.pirate.map.has_key?('enabled')
-        enabled_dir = plunder.pirate.map['enabled']
+        dirs['enabled'] = ::Pirate.haven.join(plunder.pirate.map['enabled'])
       end
     end
 
-    # All paths are relative to the project root
-    local_dir = ::Pirate.haven.join(local_dir)
-    enabled_dir = ::Pirate.haven.join(enabled_dir)
-
-    # Scan our vms-enabled/ directory for YAML config files
-    if File.directory?(enabled_dir)
-      config_files = Dir.glob("#{enabled_dir}/*.yaml")
-    else
-      raise Errors::EnabledDirMissing,
-        :enabled_dir => enabled_dir
+    if not dirs['local'].directory?
+      raise Errors::ConfigDirMissing, :label => 'local', :missing_dir => dirs['enabled']
     end
+    if not dirs['enabled'].directory?
+      raise Errors::ConfigDirMissing, :label => 'enabled',:missing_dir => dirs['enabled']
+    end
+
+    return dirs
+  end
+
+  def self.Arrr!(plunder)
+    require "yaml"
+
+    # Get our config directories
+    map = ::Pirate.get_map(plunder)
+
+    # Scan our enabled.d/ directory for YAML config files
+    config_files = Dir.glob(map['enabled'] + "*.yaml")
 
     # Build up a list of the VMs we'll provision, and their config_files
     vms = {}
@@ -77,7 +84,7 @@ module Pirate
       yml = {} if !yml.is_a?(Hash)
 
       # Allow local overrides
-      local_file = "#{local_dir}/#{vm}.yaml"
+      local_file = map['local'] + "#{vm}.yaml"
       if File.exists?(local_file)
         local = YAML.load_file local_file
         sail_ho!(yml, local) if local.is_a?(Hash)

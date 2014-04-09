@@ -9,8 +9,8 @@ module Pirate
       error_key :vagrantfile_exists
     end
 
-    class EnabledDirMissing < PirateError
-      error_key :enabled_dir_missing
+    class ConfigDirMissing < PirateError
+      error_key :config_dir_missing
     end
 
   end

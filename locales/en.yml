@@ -34,8 +34,8 @@ en:
           vagrantfile_exists: |-
             `Vagrantfile` already exists in this directory. Remove it before running `vagrant
             pirate init`, or run `vagrant pirate update` to update to the latest version.
-          enabled_dir_missing: |-
+          config_dir_missing: |-
             A valid directory must be specified where YAML configs for the VMs can be found.
-            Current config points to a non-existent directory:
-            >>> %{enabled_dir}
+            Current `%{label}` config points to a non-existent directory:
+            >>> %{missing_dir}
 
