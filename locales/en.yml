@@ -5,22 +5,20 @@ en:
         commands:
           fleet:
             success: |-
-              A `Vagrantfile` has been placed in this directory, a default Yaml VM config file
-              has been placed in '%{avail_dir}', and a symlink to it, placed in '%{enabled_dir}'.
-              Finally, a file to contain local overrides was placed in '%{local_dir}'. Unlike a
-              regular Vagrantfile, this one parses and applies the configuration in the Yaml
-              files it finds in '%{enabled_dir}'. You are now ready to `vagrant up` your first
-              virtual environment! Please read the comments in the default Yaml VM config
-              file to see how it works.
+              A `Vagrantfile` has been placed in this directory. A default directory containing
+              a Piratefile (Yaml VM config file) has been placed in '%{avail_dir}', and symlinks
+              to it, placed in '%{enabled_dir}'. Finally, files to contain local overrides were
+              placed in '%{local_dir}'. Unlike a regular Vagrantfile, this one parses and applies
+              the configuration in the Piratefiles it finds under '%{enabled_dir}'. You are now
+              ready to `vagrant up` your first virtual environment! Please read the comments in
+              the default Yaml VM config file to see how it works.
           ship:
             success: |-
-              A `Vagrantfile` has been placed in this directory, a default Yaml VM config file
-              has been placed in '%{avail_dir}', and a symlink to it, placed in '%{enabled_dir}'.
-              Finally, a file to contain local overrides was placed in '%{local_dir}'. Unlike a
-              regular Vagrantfile, this one parses and applies the configuration in the Yaml
-              files it finds in '%{enabled_dir}'. You are now ready to `vagrant up` your first
-              virtual environment! Please read the comments in the default Yaml VM config
-              file to see how it works.
+              A `Vagrantfile` and `Piratefile` (YAML VM config file) have been placed in this
+              directory, along with a symlink to it (that defines the VM name). Unlike a regular
+              Vagrantfile, this one parses and applies the configuration in the Piratefile. You
+              are now ready to `vagrant up` your first virtual environment! Please read the
+              comments in the Piratefile to see how it works.
           update:
             success: |-
               Vagrantfile updated using the latest one from vagrant-pirate.
@@ -33,9 +31,20 @@ en:
         errors:
           vagrantfile_exists: |-
             `Vagrantfile` already exists in this directory. Remove it before running `vagrant
-            pirate init`, or run `vagrant pirate update` to update to the latest version.
+            pirate %{command}`.
+          piratefile_exists: |-
+            `Piratefile` already exists in '%{this_dir}'.
+            Remove it before running `vagrant pirate %{command}`.
+          config_dir_exists: |-
+            Config directory already exists at '%{this_dir}'.
+            Remove it before running `vagrant pirate %{command}`.
           config_dir_missing: |-
             A valid directory must be specified where YAML configs for the VMs can be found.
             Current `%{label}` config points to a non-existent directory:
             >>> %{missing_dir}
-
+          local_file_exists: |-
+            Local override file already exists at `%{save_path}`.
+            Remove it before running `vagrant pirate %{command}`.
+          symlink_exists: |-
+            Symlink to available config directory already exists at %{source}.
+            Remove it before running `vagrant pirate %{command}`.

@@ -52,14 +52,14 @@ module Pirate
       end
     end
 
-    if not dirs['local'].directory?
-      raise Errors::ConfigDirMissing, :label => 'local', :missing_dir => dirs['enabled']
-    end
+    # We only check that the 'enabled' directory exists, since the 'local' one
+    # is optional and the existence of the files therein are checked indivi-
+    # dually.
     if not dirs['enabled'].directory?
-      raise Errors::ConfigDirMissing, :label => 'enabled',:missing_dir => dirs['enabled']
+      raise Errors::ConfigDirMissingError, :label => 'enabled',:missing_dir => dirs['enabled']
     end
 
-    return dirs
+    dirs
   end
 
   def self.Arrr!(plunder)
@@ -68,13 +68,16 @@ module Pirate
     # Get our config directories
     map = ::Pirate.get_map(plunder)
 
-    # Scan our enabled.d/ directory for YAML config files
-    config_files = Dir.glob(map['enabled'] + "*.yaml")
+    # Scan our enabled directory for Piratefiles (YAML config files)
+    config_dirs = Dir.glob(map['enabled'] + '*/')
 
     # Build up a list of the VMs we'll provision, and their config_files
     vms = {}
-    config_files.each do |config_file|
-      vms.update({ File.basename(config_file, ".yaml") => config_file})
+    config_dirs.each do |config_dir|
+      piratefile = Pathname.new(config_dir).join('Piratefile')
+      if piratefile.file?
+        vms.update({ File.basename(config_dir) => piratefile})
+      end
     end
 
     # VM-specific configuration loaded from YAML config files

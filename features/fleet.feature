@@ -1,8 +1,8 @@
-Feature: Init command
+Feature: 'vagrant pirate fleet' command
 
-  In order to start using a YAML-based Vagrant project
+  In order to start using a complex YAML-based Vagrant project
   As a user using vagrant-pirate
-  I want to initialize a new project
+  I want to initialize a new full-featured project
 
   Scenario: Running 'vagrant pirate fleet'
     Given a directory named "test_fleet"
@@ -11,18 +11,23 @@ Feature: Init command
     Then the following directories should exist:
       | local.d |
       | available.d |
+      | available.d/default |
       | enabled.d |
+      | enabled.d/vm1 |
+      | enabled.d/vm2 |
     And the following files should exist:
       | Vagrantfile |
-      | available.d/default.yaml |
-      | enabled.d/vm1.yaml |
-      | enabled.d/vm2.yaml |
+      | available.d/default/Piratefile |
       | local.d/vm1.yaml |
       | local.d/vm2.yaml |
-    And the output should contain "A `Vagrantfile` has been placed in this directory, a default Yaml VM config file"
-    And the output should contain "has been placed in 'available.d', and a symlink to it, placed in 'enabled.d'."
-    And the output should contain "Finally, a file to contain local overrides was placed in 'local.d'. Unlike a"
-    And the output should contain "regular Vagrantfile, this one parses and applies the configuration in the Yaml"
-    And the output should contain "files it finds in 'enabled.d'. You are now ready to `vagrant up` your first"
-    And the output should contain "virtual environment! Please read the comments in the default Yaml VM config"
-    And the output should contain "file to see how it works."
+    And the output should contain "A `Vagrantfile` has been placed in this directory. A default directory containing"
+
+  Scenario: Running 'vagrant up' after initializing a full project
+    Given a Vagrant project directory named "test_fleet_up"
+    When I successfully run `vagrant pirate fleet`
+    And I successfully run `vagrant up`
+    And I successfully run `vagrant ssh vm1 -c "hostname -f"`
+    And I successfully run `vagrant ssh vm2 -c "hostname -f"`
+    Then the output should contain "vm1.example.com"
+    Then the output should contain "vm2.example.com"
+

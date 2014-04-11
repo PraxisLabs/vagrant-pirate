@@ -14,18 +14,6 @@ module VagrantPlugins
           end
         end
 
-        def validate(machine)
-          errors = _detected_errors
-          @map.each() do |name, conf_dir|
-            current_dir = ::Pirate.haven.join(conf_dir)
-            if !File.directory?(current_dir)
-              errors << "Configuration directories must exist: #{current_dir}"
-            end
-          end
-
-          { "pirate" => errors }
-        end
-
       end
     end
   end

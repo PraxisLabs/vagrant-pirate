@@ -16,19 +16,15 @@ module VagrantPlugins
           @subcommands = Vagrant::Registry.new
 
           @subcommands.register(:ship) do
-            require File.expand_path("../pirate_ship", __FILE__)
-            PirateShip
+            require File.expand_path("../ship", __FILE__)
+            Ship
           end
 
           @subcommands.register(:fleet) do
-            require File.expand_path("../pirate_fleet", __FILE__)
-            PirateFleet
+            require File.expand_path("../fleet", __FILE__)
+            Fleet
           end
 
-          @subcommands.register(:update) do
-            require File.expand_path("../pirate_update", __FILE__)
-            PirateUpdate
-          end
         end
 
         def execute

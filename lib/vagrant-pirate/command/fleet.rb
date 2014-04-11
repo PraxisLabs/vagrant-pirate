@@ -4,7 +4,7 @@ require 'vagrant/util/template_renderer'
 module VagrantPlugins
   module Pirate
     module Command
-      class PirateFleet < Vagrant.plugin("2", :command)
+      class Fleet < Vagrant.plugin("2", :command)
 
         def self.synopsis
           "Initializes a new Vagrant environment by creating a Vagrantfile and YAML config files."
@@ -21,7 +21,7 @@ module VagrantPlugins
 
           create_vagrantfile
           create_directories
-          create_default_yaml(argv[0], argv[1])
+          create_piratefile(argv[0], argv[1])
           create_vm_yaml('vm1')
           create_vm_yaml('vm2')
 
@@ -37,9 +37,11 @@ module VagrantPlugins
 
         def create_vagrantfile
           save_path = @env.cwd.join("Vagrantfile")
-          raise Errors::VagrantfileExistsError if save_path.exist?
+          if save_path.exist?
+            raise ::Pirate::Errors::VagrantfileExistsError, :command => 'fleet'
+          end
 
-          template_path = ::Pirate.gangway.join("templates/Vagrantfile")
+          template_path = ::Pirate.gangway.join("templates/Vagrantfile_fleet")
           contents = Vagrant::Util::TemplateRenderer.render(template_path)
           save_path.open("w+") do |f|
             f.write(contents)
@@ -47,16 +49,21 @@ module VagrantPlugins
         end
 
         def create_directories
-          Dir.mkdir('available.d')
-          Dir.mkdir('enabled.d')
-          Dir.mkdir('local.d')
+          ['available.d', 'enabled.d', 'local.d', 'available.d/default'].each do |dir|
+            if ::Pirate.haven.join(dir).exist?
+              raise ::Pirate::Errors::ConfigDirExistsError, :this_dir => dir, :command => 'fleet'
+            end
+            Dir.mkdir(dir)
+          end
         end
 
-        def create_default_yaml(box_name=nil, box_url=nil)
-          save_path = @env.cwd.join("available.d/default.yaml")
-          raise Errors::VagrantfileExistsError if save_path.exist?
+        def create_piratefile(box_name=nil, box_url=nil)
+          save_path = ::Pirate.haven.join("available.d/default/Piratefile")
+          if save_path.exist?
+            raise ::Pirate::Errors::PiratefileExistsError, :this_dir => save_path.dirname, :command => 'fleet'
+          end
 
-          template_path = ::Pirate.gangway.join("templates/default.yaml")
+          template_path = ::Pirate.gangway.join("templates/Piratefile")
           contents = Vagrant::Util::TemplateRenderer.render(template_path,
                                                             :box_name => box_name,
                                                             :box_url => box_url)
@@ -66,9 +73,16 @@ module VagrantPlugins
         end
 
         def create_vm_yaml(vm_name)
-          File.symlink("../available.d/default.yaml", "enabled.d/" + vm_name + ".yaml")
-          save_path = @env.cwd.join("local.d/" + vm_name + ".yaml")
-          raise Errors::VagrantfileExistsError if save_path.exist?
+          source = "enabled.d/" + vm_name
+          target = "../available.d/default/"
+          if ::Pirate.haven.join(source).exist?
+            raise ::Pirate::Errors::SymlinkExistsError, :source => source, :command => 'fleet'
+          end
+          File.symlink(target, source)
+          save_path = ::Pirate.haven.join("local.d/" + vm_name + ".yaml")
+          if save_path.exist?
+            raise ::Pirate::Errors::LocalFileExistsError, :save_path => save_path, :command => 'fleet'
+          end
           template_path = ::Pirate.gangway.join("templates/local.yaml")
           contents = Vagrant::Util::TemplateRenderer.render(template_path,
                                                             :hostname => vm_name + ".example.com")

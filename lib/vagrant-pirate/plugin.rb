@@ -19,19 +19,15 @@ module VagrantPlugins
       end
 
       command("pirate-ship", primary: false) do
-        require_relative "command/pirate_ship"
-        Command::PirateShip
+        require_relative "command/ship"
+        Command::Ship
       end
 
       command("pirate-fleet", primary: false) do
-        require_relative "command/pirate_fleet"
-        Command::PirateFleet
+        require_relative "command/fleet"
+        Command::Fleet
       end
 
-      command("pirate-update", primary: false) do
-        require_relative "command/pirate_update"
-        Command::PirateUpdate
-      end
     end
   end
 end
