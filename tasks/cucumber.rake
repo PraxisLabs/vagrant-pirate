@@ -7,5 +7,5 @@ desc 'Default task which runs all cucumber tests'
 Coveralls::RakeTask.new
 task :default => [:features, 'coveralls:push']
 Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "features --no-source --format pretty"
+  t.cucumber_opts = "features --no-source --format pretty --tags ~@up"
 end

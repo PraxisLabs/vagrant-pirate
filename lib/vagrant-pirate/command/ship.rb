@@ -12,7 +12,7 @@ module VagrantPlugins
         def execute
           options = {}
           opts = OptionParser.new do |opts|
-            opts.banner = "Usage: vagrant pirate sheet [box-name] [box-url]"
+            opts.banner = "Usage: vagrant pirate ship [box-name] [box-url]"
           end
 
           # Parse the options

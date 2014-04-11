@@ -11,7 +11,6 @@ Feature: 'vagrant pirate ship' command
     Then the following files should exist:
       | Vagrantfile |
       | Piratefile |
-      | vm1 |
     And the output should contain "A `Vagrantfile` and `Piratefile` (YAML VM config file) have been placed in this"
 
   @up

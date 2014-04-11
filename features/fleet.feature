@@ -22,6 +22,7 @@ Feature: 'vagrant pirate fleet' command
       | local.d/vm2.yaml |
     And the output should contain "A `Vagrantfile` has been placed in this directory. A default directory containing"
 
+  @up
   Scenario: Running 'vagrant up' after initializing a full project
     Given a Vagrant project directory named "test_fleet_up"
     When I successfully run `vagrant pirate fleet`
