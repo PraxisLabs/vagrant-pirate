@@ -4,8 +4,8 @@ Vagrant-Pirate
 [![Build Status](https://travis-ci.org/PraxisLabs/vagrant-pirate.svg?branch=master)](https://travis-ci.org/PraxisLabs/vagrant-pirate) [![Coverage Status](https://coveralls.io/repos/PraxisLabs/vagrant-pirate/badge.png)](https://coveralls.io/r/PraxisLabs/vagrant-pirate) [![Dependency Status](https://gemnasium.com/PraxisLabs/vagrant-pirate.png)](https://gemnasium.com/PraxisLabs/vagrant-pirate) [![Gem Version](https://badge.fury.io/rb/vagrant-pirate.png)](http://badge.fury.io/rb/vagrant-pirate)
 
 
-Installation
-------------
+Standard Installation
+---------------------
 
 To install this gem, use the Vagrant 'plugin' command:
 
@@ -15,6 +15,30 @@ vagrant plugin install vagrant-pirate
 
 This will keep it isolated from system-wide and other gems.
 
+
+Git Installation
+----------------
+
+To install from git you will need the Rake gem and all its dependencies.
+
+You can download the latest development version from
+https://github.com/PraxisLabs/vagrant-pirate
+
+```
+git clone https://github.com/PraxisLabs/vagrant-pirate.git
+```
+
+You will then need to build the gem manually:
+
+```
+rake build
+```
+
+This will create a gem in the 'pkg' folder. You can then install it as a plugin:
+
+```
+vagrant plugin install pkg/vagrant-pirate.gem
+```
 
 Usage
 -----
